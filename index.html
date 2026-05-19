@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>校园个人简介</title>
+    <title>班级静态信息展示</title>
     <style>
         * {
             margin: 0;
@@ -12,118 +12,160 @@
         }
 
         body {
-            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
         .container {
-            max-width: 400px;
+            max-width: 1000px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
+            background: #fff;
+            border-radius: 16px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
         }
 
-        .profile-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 40px 30px 60px;
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 30px;
             text-align: center;
-            position: relative;
         }
 
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid white;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            object-fit: cover;
-        }
-
-        .name {
-            color: white;
+        .header h1 {
+            color: #fff;
             font-size: 28px;
             font-weight: 600;
-            margin-top: 15px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .title {
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 16px;
-            margin-top: 5px;
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 8px;
+            font-size: 14px;
         }
 
-        .profile-content {
+        .table-section {
             padding: 30px;
-            margin-top: -30px;
-            position: relative;
-            background: white;
-            border-radius: 20px 20px 0 0;
         }
 
-        .card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
+        .table-wrapper {
+            overflow-x: auto;
         }
 
-        .card-title {
-            font-size: 18px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        thead th {
+            padding: 16px 12px;
+            text-align: left;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            position: sticky;
+            top: 0;
+        }
+
+        tbody tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        tbody tr:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        tbody tr:hover {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            transform: scale(1.01);
+            box-shadow: 0 4px 20px rgba(240, 147, 251, 0.4);
+        }
+
+        tbody tr:hover td {
+            color: #fff;
+        }
+
+        tbody td {
+            padding: 14px 12px;
+            color: #555;
+            transition: color 0.3s ease;
+        }
+
+        tbody td:first-child {
             font-weight: 600;
             color: #333;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        .card-title::before {
-            content: '';
-            width: 4px;
-            height: 20px;
+        tbody tr:hover td:first-child {
+            color: #fff;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .status.active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .gender {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            line-height: 24px;
+            text-align: center;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .gender.male {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 2px;
         }
 
-        .info-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
+        .gender.female {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
 
-        .info-item:last-child {
-            border-bottom: none;
-        }
-
-        .info-icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 12px;
-            opacity: 0.6;
-        }
-
-        .info-label {
-            color: #888;
-            font-size: 14px;
-            width: 60px;
-        }
-
-        .info-value {
-            color: #333;
-            font-size: 14px;
-            flex: 1;
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
         }
 
         .stats {
             display: flex;
             justify-content: space-around;
-            padding: 20px 0;
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
 
         .stat-item {
@@ -131,265 +173,185 @@
         }
 
         .stat-value {
-            font-size: 24px;
-            font-weight: 600;
-            color: #667eea;
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .stat-label {
             font-size: 12px;
-            color: #888;
-            margin-top: 5px;
+            color: #666;
+            margin-top: 4px;
         }
 
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .skill-tag {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 13px;
-        }
-
-        .contact-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .contact-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-
-        .contact-btn:active {
-            transform: translateY(0);
-        }
-
-        .qr-code {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .qr-code img {
-            width: 150px;
-            height: 150px;
-            border-radius: 10px;
-        }
-
-        .qr-code p {
-            font-size: 12px;
-            color: #888;
-            margin-top: 10px;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px 0;
-        }
-
-        .social-link {
-            width: 45px;
-            height: 45px;
-            background: #f0f0f0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .social-link:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transform: translateY(-3px);
-        }
-
-        .social-link img {
-            width: 22px;
-            height: 22px;
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 22px;
             }
 
-            .container {
-                border-radius: 15px;
+            thead th {
+                font-size: 10px;
+                padding: 12px 8px;
             }
 
-            .profile-header {
-                padding: 30px 20px 50px;
+            tbody td {
+                padding: 10px 8px;
+                font-size: 12px;
             }
 
-            .avatar {
-                width: 100px;
-                height: 100px;
+            .stats {
+                flex-wrap: wrap;
             }
 
-            .name {
-                font-size: 24px;
+            .stat-item {
+                width: 50%;
+                margin-bottom: 15px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="profile-header">
-            <img src="https://neeko-copilot.bytedance.net/api/text2image?prompt=young%20asian%20college%20student%20professional%20portrait%20photo%20headshot%20friendly%20smile%20graduation%20style&image_size=square" 
-                 alt="头像" class="avatar">
-            <div class="name">李明</div>
-            <div class="title">计算机科学与技术专业 · 大三</div>
+        <div class="header">
+            <h1>🏫 软件工程2024级1班</h1>
+            <p>班级静态信息展示系统</p>
         </div>
 
-        <div class="profile-content">
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-value">3.85</div>
-                    <div class="stat-label">GPA</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">8</div>
-                    <div class="stat-label">获奖</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">3</div>
-                    <div class="stat-label">项目</div>
-                </div>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">35</div>
+                <div class="stat-label">总人数</div>
             </div>
-
-            <div class="card">
-                <div class="card-title">个人信息</div>
-                <div class="info-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E" class="info-icon">
-                    <span class="info-label">院校</span>
-                    <span class="info-value">清华大学</span>
-                </div>
-                <div class="info-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M22 12h-4l-3 9L9 3l-3 9H2'/%3E%3C/svg%3E" class="info-icon">
-                    <span class="info-label">专业</span>
-                    <span class="info-value">计算机科学与技术</span>
-                </div>
-                <div class="info-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M12 20V10'/%3E%3Cpath d='M18 20V4'/%3E%3Cpath d='M6 20v-6'/%3E%3C/svg%3E" class="info-icon">
-                    <span class="info-label">年级</span>
-                    <span class="info-value">2022级 · 大三</span>
-                </div>
-                <div class="info-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'/%3E%3C/svg%3E" class="info-icon">
-                    <span class="info-label">邮箱</span>
-                    <span class="info-value">liming@tsinghua.edu.cn</span>
-                </div>
+            <div class="stat-item">
+                <div class="stat-value">20</div>
+                <div class="stat-label">男生</div>
             </div>
-
-            <div class="card">
-                <div class="card-title">专业技能</div>
-                <div class="skills">
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Java</span>
-                    <span class="skill-tag">JavaScript</span>
-                    <span class="skill-tag">React</span>
-                    <span class="skill-tag">SQL</span>
-                    <span class="skill-tag">机器学习</span>
-                </div>
+            <div class="stat-item">
+                <div class="stat-value">15</div>
+                <div class="stat-label">女生</div>
             </div>
-
-            <div class="card">
-                <div class="card-title">教育经历</div>
-                <div class="info-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E" class="info-icon">
-                    <div style="flex: 1;">
-                        <div style="color: #333; font-size: 14px; font-weight: 500;">清华大学</div>
-                        <div style="color: #888; font-size: 12px;">计算机科学与技术 · 本科</div>
-                        <div style="color: #888; font-size: 12px;">2022.09 - 2026.06</div>
-                    </div>
-                </div>
+            <div class="stat-item">
+                <div class="stat-value">98%</div>
+                <div class="stat-label">出勤率</div>
             </div>
+        </div>
 
-            <div class="card">
-                <div class="card-title">获奖情况</div>
-                <div class="info-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z'/%3E%3C/svg%3E" class="info-icon">
-                    <div style="flex: 1;">
-                        <div style="color: #333; font-size: 14px; font-weight: 500;">国家奖学金</div>
-                        <div style="color: #888; font-size: 12px;">2023-2024学年</div>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z'/%3E%3C/svg%3E" class="info-icon">
-                    <div style="flex: 1;">
-                        <div style="color: #333; font-size: 14px; font-weight: 500;">ACM程序设计竞赛省级一等奖</div>
-                        <div style="color: #888; font-size: 12px;">2023年</div>
-                    </div>
-                </div>
+        <div class="table-section">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>年龄</th>
+                            <th>籍贯</th>
+                            <th>专业方向</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024001</td>
+                            <td>张明</td>
+                            <td><span class="gender male">男</span></td>
+                            <td>19</td>
+                            <td>北京</td>
+                            <td>前端开发</td>
+                            <td><span class="status active">在读</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024002</td>
+                            <td>李婷</td>
+                            <td><span class="gender female">女</span></td>
+                            <td>18</td>
+                            <td>上海</td>
+                            <td>后端开发</td>
+                            <td><span class="status active">在读</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024003</td>
+                            <td>王浩</td>
+                            <td><span class="gender male">男</span></td>
+                            <td>20</td>
+                            <td>广州</td>
+                            <td>移动开发</td>
+                            <td><span class="status active">在读</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024004</td>
+                            <td>刘芳</td>
+                            <td><span class="gender female">女</span></td>
+                            <td>19</td>
+                            <td>深圳</td>
+                            <td>数据分析</td>
+                            <td><span class="status active">在读</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024005</td>
+                            <td>陈伟</td>
+                            <td><span class="gender male">男</span></td>
+                            <td>21</td>
+                            <td>杭州</td>
+                            <td>人工智能</td>
+                            <td><span class="status active">在读</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024006</td>
+                            <td>赵丽</td>
+                            <td><span class="gender female">女</span></td>
+                            <td>18</td>
+                            <td>南京</td>
+                            <td>前端开发</td>
+                            <td><span class="status active">在读</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024007</td>
+                            <td>刘洋</td>
+                            <td><span class="gender male">男</span></td>
+                            <td>19</td>
+                            <td>成都</td>
+                            <td>后端开发</td>
+                            <td><span class="status inactive">请假</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024008</td>
+                            <td>孙燕</td>
+                            <td><span class="gender female">女</span></td>
+                            <td>20</td>
+                            <td>武汉</td>
+                            <td>移动开发</td>
+                            <td><span class="status active">在读</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024009</td>
+                            <td>周杰</td>
+                            <td><span class="gender male">男</span></td>
+                            <td>19</td>
+                            <td>西安</td>
+                            <td>数据分析</td>
+                            <td><span class="status active">在读</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024010</td>
+                            <td>吴敏</td>
+                            <td><span class="gender female">女</span></td>
+                            <td>18</td>
+                            <td>重庆</td>
+                            <td>人工智能</td>
+                            <td><span class="status active">在读</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
 
-            <div class="card">
-                <div class="card-title">项目经验</div>
-                <div class="info-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Crect x='3' y='3' width='7' height='7'/%3E%3Crect x='14' y='3' width='7' height='7'/%3E%3Crect x='14' y='14' width='7' height='7'/%3E%3Crect x='3' y='14' width='7' height='7'/%3E%3C/svg%3E" class="info-icon">
-                    <div style="flex: 1;">
-                        <div style="color: #333; font-size: 14px; font-weight: 500;">校园二手交易平台</div>
-                        <div style="color: #888; font-size: 12px;">负责人 · 2024年</div>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Crect x='3' y='3' width='7' height='7'/%3E%3Crect x='14' y='3' width='7' height='7'/%3E%3Crect x='14' y='14' width='7' height='7'/%3E%3Crect x='3' y='14' width='7' height='7'/%3E%3C/svg%3E" class="info-icon">
-                    <div style="flex: 1;">
-                        <div style="color: #333; font-size: 14px; font-weight: 500;">智能课程推荐系统</div>
-                        <div style="color: #888; font-size: 12px;">核心开发 · 2023年</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="social-links">
-                <a href="#" class="social-link">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666' stroke='none'%3E%3Cpath d='M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z'/%3E%3C/svg%3E">
-                </a>
-                <a href="#" class="social-link">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666' stroke='none'%3E%3Cpath d='M12 2C6.477 2 2 6.477 2 12c0 5.013 3.693 9.153 8.505 9.876V14.65H8.031v-2.629h2.474v-1.749c0-2.896 1.411-4.167 3.818-4.167 1.153 0 1.762.086 2.051.124v2.294h-1.642c-1.022 0-1.379.969-1.379 2.061v1.437h2.995l-.406 2.629h-2.588v7.247C18.235 21.236 22 17.062 22 12c0-5.523-4.477-10-10-10z'/%3E%3C/svg%3E">
-                </a>
-                <a href="#" class="social-link">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666' stroke='none'%3E%3Cpath d='M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.605 16.652c-.243.35-.638.488-1.02.33a1.836 1.836 0 01-1.872-.464l-.018-.016a2.103 2.103 0 01-.542-.373c-.24-.18-.4-.403-.501-.66a1.72 1.72 0 01-.162-.836c0-.573.267-1.08.71-1.446.456-.373 1.05-.567 1.688-.567h.085a3.29 3.29 0 001.433.278v3.465zm-2.282-4.036c-.207-.273-.636-.424-1.05-.314-.418.108-.768.372-.962.75a1.88 1.88 0 01-.27 1.134 2.01 2.01 0 01-.593.582 1.933 1.933 0 01-.832.234c-.665 0-1.24-.267-1.65-.723-.42-.46-.635-1.06-.635-1.714 0-.65.216-1.242.647-1.772.43-.527 1.002-.79 1.615-.79.573 0 1.076.19 1.485.568.408.378.665.86.753 1.446l-.554.22c-.084-.37-.371-.66-.774-.858zm-4.308 3.096c-.722 0-1.306-.59-1.306-1.316 0-.722.584-1.316 1.306-1.316.723 0 1.307.594 1.307 1.316 0 .726-.584 1.316-1.307 1.316zm0-2.232c-.502 0-.91-.416-.91-.927s.408-.928.91-.928c.503 0 .91.417.91.928s-.407.927-.91.927z'/%3E%3C/svg%3E">
-                </a>
-                <a href="#" class="social-link">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666' stroke='none'%3E%3Cpath d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/%3E%3C/svg%3E">
-                </a>
-            </div>
-
-            <button class="contact-btn" onclick="showQRCode()">扫码联系我</button>
-
-            <div class="qr-code" id="qrCode" style="display: none;">
-                <img src="https://neeko-copilot.bytedance.net/api/text2image?prompt=simple%20QR%20code%20black%20and%20white%20clean%20design&image_size=square" alt="二维码">
-                <p>微信扫码添加好友</p>
-            </div>
+        <div class="footer">
+            <p>© 2024 软件工程学院 · 班级信息管理系统</p>
         </div>
     </div>
-
-    <script>
-        function showQRCode() {
-            const qrCode = document.getElementById('qrCode');
-            if (qrCode.style.display === 'none') {
-                qrCode.style.display = 'block';
-            } else {
-                qrCode.style.display = 'none';
-            }
-        }
-    </script>
 </body>
 </html>
